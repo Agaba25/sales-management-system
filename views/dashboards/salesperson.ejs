@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %> | Sales Management System</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    >
+  </head>
+  <body class="bg-light">
+    <nav class="navbar navbar-expand-lg bg-white border-bottom">
+      <div class="container">
+        <span class="navbar-brand mb-0 h1">Salesperson Dashboard</span>
+        <div class="d-flex align-items-center gap-3">
+          <span class="text-secondary small"><%= currentUser.name %> | <%= currentUser.role %></span>
+          <form action="/auth/logout" method="POST" class="mb-0">
+            <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container py-5">
+      <div class="mb-3">
+        <a href="/sales/new" class="btn btn-success">New Sale</a>
+        <a href="/sales" class="btn btn-primary">My Sales</a>
+        <a href="/customers/new" class="btn btn-outline-primary">Add Customer</a>
+        <a href="/products" class="btn btn-outline-secondary">Available Products</a>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm mb-3">
+            <div class="card-body">
+              <p class="text-secondary mb-1">My Sales</p>
+              <h2 class="h3 mb-0"><%= mySales %></h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <p class="text-secondary mb-2">Available Products</p>
+              <% if (products && products.length) { %>
+                <div class="table-responsive">
+                  <table class="table table-sm mb-0">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Product</th>
+                        <th>SKU</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% products.forEach((p) => { %>
+                        <tr>
+                          <td><%= p.name %></td>
+                          <td><%= p.sku %></td>
+                          <td>UGX <%= Number(p.unit_price).toFixed(2) %></td>
+                          <td><%= p.quantity %></td>
+                        </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+              <% } else { %>
+                <p class="text-secondary mb-0">No products available.</p>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
