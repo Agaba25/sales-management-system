@@ -5,6 +5,8 @@ import pool from "../config/db.js";
 const router = express.Router();
 const SALT_ROUNDS = 10;
 
+const isMissingUsersTable = (error) => error.code === "42P01";
+
 router.get("/status", async (req, res) => {
   try {
     const countResult = await pool.query("SELECT COUNT(*) FROM users");
@@ -19,6 +21,12 @@ router.get("/status", async (req, res) => {
     });
   } catch (error) {
     console.error("Initial setup status error:", error.message);
+
+    if (isMissingUsersTable(error)) {
+      return res.status(503).json({
+        message: "Database is connected, but the users table is missing. Run the database initialization script first.",
+      });
+    }
 
     return res.status(500).json({
       message: "Unable to check initial setup status.",
@@ -61,6 +69,12 @@ router.post("/ceo", async (req, res) => {
     });
   } catch (error) {
     console.error("Initial CEO setup error:", error.message);
+
+    if (isMissingUsersTable(error)) {
+      return res.status(503).json({
+        message: "Database is connected, but the users table is missing. Run the database initialization script first.",
+      });
+    }
 
     return res.status(500).json({
       message: "Unable to complete initial setup.",
