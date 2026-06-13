@@ -14,6 +14,7 @@ import salesRoutes from "./routes/salesRoutes.js";
 import activityRoutes from "./routes/activityRoutes.js";
 import customerRoutes from "./routes/customerRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import setupRoutes from "./routes/setupRoute.js";
 import { setAuthLocals } from "./middleware/authMiddleware.js";
 import { showLanding } from "./controllers/landingController.js";
 import { showDashboard } from "./controllers/dashboardController.js";
@@ -43,6 +44,7 @@ app.use(session(sessionConfig));
 app.use(flash());
 app.use(setAuthLocals);
 
+app.use("/api/setup", setupRoutes);
 app.use("/auth", authRoutes);
 app.use("/inventory", inventoryRoutes);
 app.use("/products", productRoutes);
