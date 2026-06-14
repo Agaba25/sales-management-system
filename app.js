@@ -21,6 +21,7 @@ import { showDashboard } from "./controllers/dashboardController.js";
 import reportsRoutes from "./routes/reportsRoutes.js";
 import analyticsRoutes from "./routes/analyticsRoutes.js";
 import scheduler from "./jobs/scheduler.js";
+import { runMigrations } from "./database/migrations.js";
 
 dotenv.config();
 
@@ -82,6 +83,7 @@ app.get("/db-test", async (req, res) => {
 const startServer = async () => {
   try {
     await testConnection();
+    await runMigrations(pool);
 
     const server = app.listen(PORT, async () => {
       console.log(`Server is running on port ${PORT}`);
