@@ -47,24 +47,21 @@
             </div>
 
             <div class="col-md-6">
-              <label for="category_id" class="form-label">Category</label>
-              <select id="category_id" name="category_id" class="form-select">
-                <option value="">Uncategorized</option>
+              <label for="category_name" class="form-label">Category</label>
+              <input
+                id="category_name"
+                name="category_name"
+                class="form-control"
+                list="category-options"
+                value="<%= product.category_name || '' %>"
+                placeholder="Type or choose a category"
+              >
+              <datalist id="category-options">
                 <% categories.forEach((category) => { %>
-                  <option
-                    value="<%= category.id %>"
-                    <%= Number(product.category_id) === Number(category.id) ? 'selected' : '' %>
-                  >
-                    <%= category.name %>
-                  </option>
+                  <option value="<%= category.name %>"></option>
                 <% }) %>
-              </select>
-            </div>
-
-            <div class="col-md-6">
-              <label for="new_category" class="form-label">New Category</label>
-              <input id="new_category" name="new_category" class="form-control" placeholder="Type a new category name">
-              <div class="form-text">Typing a category here will use it instead of the dropdown selection.</div>
+              </datalist>
+              <div class="form-text">Leave blank to keep the product uncategorized.</div>
             </div>
 
             <div class="col-md-6">

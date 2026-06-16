@@ -45,9 +45,11 @@ class Product {
 
   static async findById(id) {
     const result = await pool.query(
-      `SELECT *
+      `SELECT products.*,
+              categories.name AS category_name
        FROM products
-       WHERE id = $1
+       LEFT JOIN categories ON products.category_id = categories.id
+       WHERE products.id = $1
        LIMIT 1`,
       [id]
     );

@@ -15,12 +15,14 @@ const productPayload = (body) => ({
 
 const productPayloadWithCategory = async (body) => {
   const payload = productPayload(body);
-  const manualCategory = body.new_category?.trim();
+  const manualCategory = body.category_name?.trim();
 
   if (manualCategory) {
-    // A typed category intentionally overrides the dropdown during product save.
+    // The product form accepts typed categories and creates them on demand.
     const category = await Product.findOrCreateCategory(manualCategory);
     payload.category_id = category?.id || null;
+  } else {
+    payload.category_id = null;
   }
 
   return payload;
