@@ -10,6 +10,13 @@
     "db:init": "node database/init.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "nodemonConfig": {
+    "ignore": [
+      "server.log",
+      "server-error.log",
+      "exports/**"
+    ]
+  },
   "keywords": [],
   "author": "AGABA MICHEAL",
   "license": "ISC",

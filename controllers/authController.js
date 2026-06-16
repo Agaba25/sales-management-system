@@ -1,5 +1,14 @@
 import User from "../models/User.js";
 
+const renderLogin = (res, status, { email = "", errorMessages = [], successMessages = [] } = {}) => {
+  return res.status(status).render("auth/login", {
+    title: "Login",
+    email,
+    errorMessages,
+    successMessages,
+  });
+};
+
 export const showLogin = (req, res) => {
   if (req.session.user) {
     return res.redirect("/");
@@ -16,10 +25,9 @@ export const login = async (req, res) => {
   const password = req.body.password;
 
   if (!email || !password) {
-    req.flash("error", "Email and password are required.");
-    return res.status(400).render("auth/login", {
-      title: "Login",
+    return renderLogin(res, 400, {
       email: email || "",
+      errorMessages: ["Email and password are required."],
     });
   }
 
@@ -29,20 +37,25 @@ export const login = async (req, res) => {
       ? await User.verifyPassword(password, user.password_hash)
       : false;
 
-    if (!user || !passwordMatches) {
-      req.flash("error", "Invalid email or password.");
-      return res.status(401).render("auth/login", {
-        title: "Login",
+    if (!user) {
+      return renderLogin(res, 401, {
         email,
+        errorMessages: ["Invalid email or password."],
+      });
+    }
+
+    if (!passwordMatches) {
+      return renderLogin(res, 401, {
+        email,
+        errorMessages: ["Wrong password. Please try again."],
       });
     }
 
     req.session.regenerate((regenerateError) => {
       if (regenerateError) {
-        req.flash("error", "Unable to start a secure session.");
-        return res.status(500).render("auth/login", {
-          title: "Login",
+        return renderLogin(res, 500, {
           email,
+          errorMessages: ["Unable to start a secure session."],
         });
       }
 
@@ -57,10 +70,9 @@ export const login = async (req, res) => {
     });
   } catch (error) {
     console.error("Login error:", error.message);
-    req.flash("error", "Something went wrong. Please try again.");
-    return res.status(500).render("auth/login", {
-      title: "Login",
+    return renderLogin(res, 500, {
       email,
+      errorMessages: ["Something went wrong. Please try again."],
     });
   }
 };

@@ -51,14 +51,35 @@
 
             <div class="mb-4">
               <label for="password" class="form-label">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                autocomplete="current-password"
-                required
-              >
+              <div class="input-group">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  autocomplete="current-password"
+                  required
+                >
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary password-toggle"
+                  id="togglePassword"
+                  aria-label="Show password"
+                  aria-pressed="false"
+                  title="Show password"
+                >
+                  <svg class="password-toggle-icon password-toggle-icon-show" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <svg class="password-toggle-icon password-toggle-icon-hide d-none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 3l18 18"></path>
+                    <path d="M10.6 10.6A2 2 0 0 0 12 14a2 2 0 0 0 1.4-.6"></path>
+                    <path d="M9.9 4.2A10.5 10.5 0 0 1 12 4c6.5 0 10 8 10 8a18.4 18.4 0 0 1-3.2 4.3"></path>
+                    <path d="M6.6 6.6C3.6 8.6 2 12 2 12s3.5 8 10 8a10.2 10.2 0 0 0 4.3-.9"></path>
+                  </svg>
+                </button>
+              </div>
             </div>
 
             <button type="submit" class="btn btn-primary w-100">Login</button>
@@ -66,5 +87,21 @@
         </div>
       </div>
     </main>
+    <script>
+      const passwordInput = document.getElementById("password");
+      const togglePassword = document.getElementById("togglePassword");
+      const showIcon = togglePassword.querySelector(".password-toggle-icon-show");
+      const hideIcon = togglePassword.querySelector(".password-toggle-icon-hide");
+
+      togglePassword.addEventListener("click", () => {
+        const shouldShowPassword = passwordInput.type === "password";
+        passwordInput.type = shouldShowPassword ? "text" : "password";
+        togglePassword.setAttribute("aria-label", shouldShowPassword ? "Hide password" : "Show password");
+        togglePassword.setAttribute("aria-pressed", String(shouldShowPassword));
+        togglePassword.setAttribute("title", shouldShowPassword ? "Hide password" : "Show password");
+        showIcon.classList.toggle("d-none", shouldShowPassword);
+        hideIcon.classList.toggle("d-none", !shouldShowPassword);
+      });
+    </script>
   </body>
 </html>
