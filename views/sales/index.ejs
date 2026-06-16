@@ -63,7 +63,7 @@
                 <td><%= sale.id %></td>
                 <td><%= sale.customer_name %></td>
                 <td><%= sale.user_name || 'System' %></td>
-                <td><%= formatNumber(sale.item_count) %></td>
+                <td><%= sale.item_count %></td>
                 <td>UGX <%= formatCurrencyUGX(sale.total_amount) %></td>
                 <td><%= new Date(sale.created_at).toLocaleString() %></td>
                 <td>

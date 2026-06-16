@@ -84,7 +84,7 @@
                     <select name="product_id[]" class="form-select product-select" required>
                       <option value="">Select product</option>
                       <% products.forEach((product) => { %>
-                        <option value="<%= product.id %>" data-unit-price="<%= product.unit_price %>" data-stock="<%= product.quantity %>"><%= product.name %> (<%= product.sku %>) - <%= formatNumber(product.quantity) %> in stock</option>
+                        <option value="<%= product.id %>" data-unit-price="<%= product.unit_price %>" data-stock="<%= product.quantity %>"><%= product.name %> (<%= product.sku %>) - <%= product.quantity %> in stock</option>
                       <% }) %>
                     </select>
                   </td>

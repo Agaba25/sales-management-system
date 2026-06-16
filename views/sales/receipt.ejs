@@ -55,7 +55,7 @@
                   <td><%= item.product_name %></td>
                   <td><%= item.sku || '-' %></td>
                   <td>UGX <%= formatCurrencyUGX(item.unit_price) %></td>
-                  <td><%= formatNumber(item.quantity) %></td>
+                  <td><%= item.quantity %></td>
                   <td>UGX <%= formatCurrencyUGX(item.total_price) %></td>
                 </tr>
               <% }) %>

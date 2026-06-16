@@ -48,13 +48,13 @@
           <div class="col-md-3">
             <div class="card p-3">
               <div class="text-muted small">Rows</div>
-              <div class="fw-semibold h4"><%= formatNumber(pagination.totalRows || rows.length || 0) %></div>
+              <div class="fw-semibold h4"><%= pagination.totalRows || rows.length || 0 %></div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card p-3">
               <div class="text-muted small">Limit</div>
-              <div class="fw-semibold h4"><%= formatNumber(pagination.limit || filters.limit) %></div>
+              <div class="fw-semibold h4"><%= pagination.limit || filters.limit %></div>
             </div>
           </div>
           <div class="col-md-3">
@@ -120,22 +120,22 @@
                       <td><%= r.customer_name %></td>
                       <td><%= r.salesperson_name %></td>
                       <td class="text-end">UGX <%= formatCurrencyUGX(r.total_amount || 0) %></td>
-                      <td class="text-end"><%= formatNumber(r.item_count) %></td>
+                      <td class="text-end"><%= r.item_count %></td>
                       <td><%= new Date(r.created_at).toLocaleString() %></td>
                     <% } else if (type === 'inventory' || type === 'procurement') { %>
                       <td><%= r.product_name || r.name %></td>
                       <td><%= r.sku || '-' %></td>
-                      <td class="text-end"><%= formatNumber(r.quantity || r.qty_sold || 0) %></td>
+                      <td class="text-end"><%= r.quantity || r.qty_sold || 0 %></td>
                       <td><%= r.created_at ? new Date(r.created_at).toLocaleString() : '' %></td>
                       <td><%= r.recorded_by || r.logged_by || '-' %></td>
                     <% } else if (type === 'customers') { %>
                       <td><%= r.name %></td>
                       <td><%= r.email %></td>
-                      <td class="text-end"><%= formatNumber(r.order_count) %></td>
+                      <td class="text-end"><%= r.order_count %></td>
                       <td class="text-end">UGX <%= formatCurrencyUGX(r.total_spent || 0) %></td>
                     <% } else if (type === 'performance') { %>
                       <td><%= r.name %></td>
-                      <td class="text-end"><%= formatNumber(r.sales_count) %></td>
+                      <td class="text-end"><%= r.sales_count %></td>
                       <td class="text-end">UGX <%= formatCurrencyUGX(r.revenue || 0) %></td>
                     <% } %>
                   </tr>
