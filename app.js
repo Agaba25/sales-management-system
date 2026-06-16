@@ -34,7 +34,13 @@ app.set("trust proxy", 1);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+// Shared display helpers keep financial and quantity figures consistent across templates.
 app.locals.formatCurrencyUGX = (value) => {
+  const number = Number(String(value).replace(/,/g, "")) || 0;
+  return number.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
+
+app.locals.formatNumber = (value) => {
   const number = Number(String(value).replace(/,/g, "")) || 0;
   return number.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 };

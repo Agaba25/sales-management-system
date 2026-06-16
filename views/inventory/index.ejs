@@ -27,7 +27,7 @@
     <main class="container py-4">
       <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between mb-3">
         <h1 class="h3 mb-0">Inventory</h1>
-        <span class="badge text-bg-warning"><%= lowStockProducts.length %> Low Stock Alerts</span>
+        <span class="badge text-bg-warning"><%= formatNumber(lowStockProducts.length) %> Low Stock Alerts</span>
       </div>
 
       <% if (errorMessages && errorMessages.length) { %>
@@ -40,7 +40,7 @@
       <% if (lowStockProducts.length > 0) { %>
         <div class="alert alert-warning">
           <strong>Low stock:</strong>
-          <%= lowStockProducts.map((product) => `${product.name} (${product.quantity})`).join(", ") %>
+          <%= lowStockProducts.map((product) => `${product.name} (${formatNumber(product.quantity)})`).join(", ") %>
         </div>
       <% } %>
 
@@ -84,8 +84,8 @@
                 <td><%= item.name %></td>
                 <td><%= item.sku %></td>
                 <td><%= item.category_name || 'Uncategorized' %></td>
-                <td><%= item.quantity %></td>
-                <td><%= item.reorder_level %></td>
+                <td><%= formatNumber(item.quantity) %></td>
+                <td><%= formatNumber(item.reorder_level) %></td>
                 <td>
                   <% if (item.quantity === 0) { %>
                     <span class="badge text-bg-danger">Out of Stock</span>

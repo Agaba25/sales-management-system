@@ -35,7 +35,7 @@
           <div class="card border-0 shadow-sm">
             <div class="card-body">
               <p class="text-secondary mb-1">Total Products</p>
-              <h2 class="h3 mb-0"><%= inventory.totalProducts %></h2>
+              <h2 class="h3 mb-0"><%= formatNumber(inventory.totalProducts) %></h2>
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@
           <div class="card border-0 shadow-sm">
             <div class="card-body">
               <p class="text-secondary mb-1">Low Stock</p>
-              <h2 class="h3 mb-0"><%= inventory.lowStockProducts %></h2>
+              <h2 class="h3 mb-0"><%= formatNumber(inventory.lowStockProducts) %></h2>
             </div>
           </div>
         </div>
@@ -51,7 +51,7 @@
           <div class="card border-0 shadow-sm">
             <div class="card-body">
               <p class="text-secondary mb-1">Out of Stock</p>
-              <h2 class="h3 mb-0"><%= inventory.outOfStockProducts %></h2>
+              <h2 class="h3 mb-0"><%= formatNumber(inventory.outOfStockProducts) %></h2>
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
           <div class="card border-0 shadow-sm">
             <div class="card-body">
               <p class="text-secondary mb-1">Recorded Actions</p>
-              <h2 class="h3 mb-0"><%= activityCount %></h2>
+              <h2 class="h3 mb-0"><%= formatNumber(activityCount) %></h2>
             </div>
           </div>
         </div>

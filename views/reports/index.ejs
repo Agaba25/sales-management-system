@@ -39,25 +39,25 @@
           <div class="col-md-3">
             <div class="card p-3">
               <div class="text-muted small">Products</div>
-              <div class="fw-semibold h4"><%= summary.totalProducts || 0 %></div>
+              <div class="fw-semibold h4"><%= formatNumber(summary.totalProducts || 0) %></div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card p-3">
               <div class="text-muted small">Total Revenue</div>
-              <div class="fw-semibold h4">UGX <%= (summary.retailValue || 0).toFixed ? Number(summary.retailValue).toFixed(2) : summary.retailValue %></div>
+              <div class="fw-semibold h4">UGX <%= formatCurrencyUGX(summary.retailValue || 0) %></div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card p-3">
               <div class="text-muted small">Low stock</div>
-              <div class="fw-semibold h4"><%= summary.lowStock || 0 %></div>
+              <div class="fw-semibold h4"><%= formatNumber(summary.lowStock || 0) %></div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card p-3">
               <div class="text-muted small">Out of stock</div>
-              <div class="fw-semibold h4"><%= summary.outOfStock || 0 %></div>
+              <div class="fw-semibold h4"><%= formatNumber(summary.outOfStock || 0) %></div>
             </div>
           </div>
         </div>
@@ -93,11 +93,11 @@
                 <tr>
                   <td><%= r.name || r.product_name || '-' %></td>
                   <td><%= r.sku || '-' %></td>
-                  <td class="text-end"><%= units %></td>
-                  <td class="text-end">UGX <%= revenue.toFixed(2) %></td>
-                  <td class="text-end">UGX <%= costPrice.toFixed(2) %></td>
-                  <td class="text-end">UGX <%= totalCost.toFixed(2) %></td>
-                  <td class="text-end"><%= margin.toFixed(2) %></td>
+                  <td class="text-end"><%= formatNumber(units) %></td>
+                  <td class="text-end">UGX <%= formatCurrencyUGX(revenue) %></td>
+                  <td class="text-end">UGX <%= formatCurrencyUGX(costPrice) %></td>
+                  <td class="text-end">UGX <%= formatCurrencyUGX(totalCost) %></td>
+                  <td class="text-end">UGX <%= formatCurrencyUGX(margin) %></td>
                   <td class="text-center">
                     <% if (units === 0) { %>
                       -

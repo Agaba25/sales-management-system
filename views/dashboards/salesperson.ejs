@@ -34,7 +34,7 @@
           <div class="card border-0 shadow-sm mb-3">
             <div class="card-body">
               <p class="text-secondary mb-1">My Sales</p>
-              <h2 class="h3 mb-0"><%= mySales %></h2>
+              <h2 class="h3 mb-0"><%= formatNumber(mySales) %></h2>
             </div>
           </div>
         </div>
@@ -59,8 +59,8 @@
                         <tr>
                           <td><%= p.name %></td>
                           <td><%= p.sku %></td>
-                          <td>UGX <%= Number(p.unit_price).toFixed(2) %></td>
-                          <td><%= p.quantity %></td>
+                          <td>UGX <%= formatCurrencyUGX(p.unit_price) %></td>
+                          <td><%= formatNumber(p.quantity) %></td>
                         </tr>
                       <% }) %>
                     </tbody>

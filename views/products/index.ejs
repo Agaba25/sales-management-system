@@ -77,8 +77,8 @@
                 <td><%= product.name %></td>
                 <td><%= product.sku %></td>
                 <td><%= product.category_name || 'Uncategorized' %></td>
-                <td><%= product.quantity %></td>
-                <td>UGX <%= Number(product.unit_price).toFixed(2) %></td>
+                <td><%= formatNumber(product.quantity) %></td>
+                <td>UGX <%= formatCurrencyUGX(product.unit_price) %></td>
                 <td>
                   <% if (product.is_active) { %>
                     <span class="badge text-bg-success">Active</span>

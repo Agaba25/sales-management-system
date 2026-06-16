@@ -63,8 +63,8 @@
                 <td><%= sale.id %></td>
                 <td><%= sale.customer_name %></td>
                 <td><%= sale.user_name || 'System' %></td>
-                <td><%= sale.item_count %></td>
-                <td>UGX <%= Number(sale.total_amount).toFixed(2) %></td>
+                <td><%= formatNumber(sale.item_count) %></td>
+                <td>UGX <%= formatCurrencyUGX(sale.total_amount) %></td>
                 <td><%= new Date(sale.created_at).toLocaleString() %></td>
                 <td>
                   <a href="/sales/<%= sale.id %>/receipt" class="btn btn-sm btn-outline-primary">Receipt</a>

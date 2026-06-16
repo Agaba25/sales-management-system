@@ -13,6 +13,19 @@ const productPayload = (body) => ({
   is_active: body.is_active === "on",
 });
 
+const productPayloadWithCategory = async (body) => {
+  const payload = productPayload(body);
+  const manualCategory = body.new_category?.trim();
+
+  if (manualCategory) {
+    // A typed category intentionally overrides the dropdown during product save.
+    const category = await Product.findOrCreateCategory(manualCategory);
+    payload.category_id = category?.id || null;
+  }
+
+  return payload;
+};
+
 export const listProducts = async (req, res) => {
   try {
     const search = req.query.search?.trim() || "";
@@ -45,7 +58,7 @@ export const showAddProduct = async (req, res) => {
 
 export const addProduct = async (req, res) => {
   try {
-    const product = await Product.create(productPayload(req.body));
+    const product = await Product.create(await productPayloadWithCategory(req.body));
     await ActivityLog.create({
       userId: req.session.user.id,
       role: req.session.user.role,
@@ -84,7 +97,7 @@ export const showEditProduct = async (req, res) => {
 
 export const editProduct = async (req, res) => {
   try {
-    const product = await Product.update(req.params.id, productPayload(req.body));
+    const product = await Product.update(req.params.id, await productPayloadWithCategory(req.body));
 
     if (!product) {
       req.flash("error", "Product not found.");

@@ -29,7 +29,7 @@
           <dd class="col-sm-9"><%= sale.customer_name %></dd>
 
           <dt class="col-sm-3">Total</dt>
-          <dd class="col-sm-9">UGX <%= Number(sale.total_amount).toFixed(2) %></dd>
+          <dd class="col-sm-9">UGX <%= formatCurrencyUGX(sale.total_amount) %></dd>
 
           <dt class="col-sm-3">Status</dt>
           <dd class="col-sm-9"><%= sale.status %></dd>
@@ -54,9 +54,9 @@
                 <tr>
                   <td><%= item.product_name %></td>
                   <td><%= item.sku || '-' %></td>
-                  <td>UGX <%= Number(item.unit_price).toFixed(2) %></td>
-                  <td><%= item.quantity %></td>
-                  <td>UGX <%= Number(item.total_price).toFixed(2) %></td>
+                  <td>UGX <%= formatCurrencyUGX(item.unit_price) %></td>
+                  <td><%= formatNumber(item.quantity) %></td>
+                  <td>UGX <%= formatCurrencyUGX(item.total_price) %></td>
                 </tr>
               <% }) %>
             </tbody>

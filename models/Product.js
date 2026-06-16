@@ -123,6 +123,42 @@ class Product {
 
     return result.rows;
   }
+
+  static async findOrCreateCategory(name) {
+    const categoryName = name?.trim();
+
+    if (!categoryName) {
+      return null;
+    }
+
+    // Reuse an existing category when the typed name differs only by letter case.
+    const existing = await pool.query(
+      `UPDATE categories
+       SET is_active = TRUE,
+           updated_at = CURRENT_TIMESTAMP
+       WHERE id = (
+         SELECT id
+         FROM categories
+         WHERE LOWER(name) = LOWER($1)
+         LIMIT 1
+       )
+       RETURNING id, name`,
+      [categoryName]
+    );
+
+    if (existing.rows[0]) {
+      return existing.rows[0];
+    }
+
+    const result = await pool.query(
+      `INSERT INTO categories (name)
+       VALUES ($1)
+       RETURNING id, name`,
+      [categoryName]
+    );
+
+    return result.rows[0];
+  }
 }
 
 export default Product;

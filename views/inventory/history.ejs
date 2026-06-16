@@ -62,9 +62,9 @@
                     <span class="badge text-bg-danger">Stock Out</span>
                   <% } %>
                 </td>
-                <td><%= movement.quantity %></td>
-                <td><%= movement.previous_quantity %></td>
-                <td><%= movement.new_quantity %></td>
+                <td><%= formatNumber(movement.quantity) %></td>
+                <td><%= formatNumber(movement.previous_quantity) %></td>
+                <td><%= formatNumber(movement.new_quantity) %></td>
                 <td><%= movement.user_name || 'System' %></td>
                 <td><%= movement.reason || '-' %></td>
               </tr>
