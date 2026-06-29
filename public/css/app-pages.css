@@ -1,0 +1,378 @@
+/* Link dashboard.css before app-pages.css in templates */
+
+/* ── Page shell (analytics, reports, activity) ── */
+.app-page-main {
+  flex: 1;
+  padding: 2rem 0 3rem;
+}
+
+.page-hero {
+  background: linear-gradient(135deg, #0f2744 0%, var(--dash-primary) 55%, #1a4a6e 100%);
+  border-radius: 1rem;
+  padding: 1.75rem 2rem;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.page-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.page-hero h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.page-hero p {
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 0;
+  font-size: 0.92rem;
+}
+
+.page-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(14, 165, 233, 0.2);
+  border: 1px solid rgba(14, 165, 233, 0.35);
+  color: #7dd3fc;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ── Filter bar ── */
+.filter-panel {
+  background: var(--dash-card);
+  border: 1px solid var(--dash-border);
+  border-radius: 0.85rem;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-panel-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--dash-muted);
+  margin-bottom: 0.65rem;
+}
+
+.period-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.period-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 2rem;
+  border: 1px solid var(--dash-border);
+  background: #fff;
+  color: #334155;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.period-tab:hover {
+  border-color: var(--dash-accent);
+  color: var(--dash-primary);
+}
+
+.period-tab.active {
+  background: var(--dash-primary);
+  border-color: var(--dash-primary);
+  color: #fff;
+}
+
+.period-tab .count {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.1rem 0.45rem;
+  border-radius: 1rem;
+}
+
+.period-tab:not(.active) .count {
+  background: var(--dash-surface);
+  color: var(--dash-muted);
+}
+
+.range-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--dash-accent-soft);
+  color: var(--dash-info);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* ── Insight cards ── */
+.insight-grid {
+  margin-bottom: 1.5rem;
+}
+
+.insight-card {
+  background: var(--dash-card);
+  border: 1px solid var(--dash-border);
+  border-radius: 0.85rem;
+  padding: 1.15rem 1.25rem;
+  height: 100%;
+}
+
+.insight-card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--dash-muted);
+  margin-bottom: 0.25rem;
+}
+
+.insight-card-value {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+
+.insight-card-hint {
+  font-size: 0.75rem;
+  color: var(--dash-muted);
+  margin-top: 0.3rem;
+  margin-bottom: 0;
+}
+
+/* ── Data tables ── */
+.data-card {
+  background: var(--dash-card);
+  border: 1px solid var(--dash-border);
+  border-radius: 0.85rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.data-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--dash-border);
+  background: #fafbfc;
+}
+
+.data-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.chart-card {
+  background: var(--dash-card);
+  border: 1px solid var(--dash-border);
+  border-radius: 0.85rem;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.chart-card-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--dash-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+/* ── Activity log ── */
+.activity-group {
+  margin-bottom: 1.5rem;
+}
+
+.activity-group-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--dash-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 2px solid var(--dash-accent-soft);
+}
+
+.activity-group-count {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--dash-muted);
+  background: var(--dash-surface);
+  padding: 0.15rem 0.5rem;
+  border-radius: 1rem;
+}
+
+.activity-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.85rem 1rem;
+  align-items: start;
+  padding: 0.9rem 1.1rem;
+  background: var(--dash-card);
+  border: 1px solid var(--dash-border);
+  border-radius: 0.65rem;
+  margin-bottom: 0.5rem;
+  transition: box-shadow 0.15s;
+}
+
+.activity-item:hover {
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+}
+
+.activity-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  background: var(--dash-accent-soft);
+  color: var(--dash-info);
+  flex-shrink: 0;
+}
+
+.activity-meta {
+  min-width: 0;
+}
+
+.activity-action {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: #0f172a;
+  margin-bottom: 0.15rem;
+}
+
+.activity-desc {
+  font-size: 0.82rem;
+  color: #475569;
+  margin-bottom: 0.35rem;
+}
+
+.activity-actor {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  color: var(--dash-muted);
+}
+
+.activity-time {
+  font-size: 0.75rem;
+  color: var(--dash-muted);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.role-badge,
+.action-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.3rem;
+}
+
+.role-badge--CEO { background: rgba(30, 58, 95, 0.12); color: var(--dash-primary); }
+.role-badge--MANAGER { background: rgba(14, 165, 233, 0.12); color: var(--dash-info); }
+.role-badge--SALESPERSON { background: rgba(5, 150, 105, 0.12); color: var(--dash-success); }
+
+.action-badge {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.entity-tag {
+  font-size: 0.72rem;
+  color: var(--dash-muted);
+  background: #f8fafc;
+  border: 1px solid var(--dash-border);
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.3rem;
+}
+
+.margin-positive { color: var(--dash-success); font-weight: 600; }
+.margin-negative { color: var(--dash-danger); font-weight: 600; }
+
+.type-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.type-tab {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--dash-border);
+  background: #fff;
+  color: #475569;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.type-tab:hover,
+.type-tab.active {
+  background: var(--dash-primary);
+  border-color: var(--dash-primary);
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .activity-item {
+    grid-template-columns: auto 1fr;
+  }
+
+  .activity-time {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .app-page-main {
+    padding: 1.25rem 0 2rem;
+  }
+}

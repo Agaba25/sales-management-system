@@ -14,6 +14,7 @@ export const normalizeReportFilters = (query = {}) => {
   return {
     startDate: query.startDate || query.start_date || "",
     endDate: query.endDate || query.end_date || "",
+    search: query.search || "",
     page,
     limit,
     offset: (page - 1) * limit,

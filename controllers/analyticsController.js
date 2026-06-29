@@ -1,32 +1,7 @@
 import pool from "../config/db.js";
 import * as reportService from "../services/reportService.js";
 import ReportLog from "../models/ReportLog.js";
-
-// Compute ISO date range for day/week/month
-const computeRange = (period = "month", refDateStr) => {
-  const ref = refDateStr ? new Date(refDateStr) : new Date();
-  ref.setHours(0, 0, 0, 0);
-
-  if (period === "day") {
-    const start = new Date(ref);
-    const end = new Date(ref);
-    end.setDate(end.getDate() + 1);
-    return { start: start.toISOString(), end: end.toISOString() };
-  }
-
-  if (period === "week") {
-    const day = (ref.getDay() + 6) % 7;
-    const start = new Date(ref);
-    start.setDate(start.getDate() - day);
-    const end = new Date(start);
-    end.setDate(end.getDate() + 7);
-    return { start: start.toISOString(), end: end.toISOString() };
-  }
-
-  const start = new Date(ref.getFullYear(), ref.getMonth(), 1);
-  const end = new Date(ref.getFullYear(), ref.getMonth() + 1, 1);
-  return { start: start.toISOString(), end: end.toISOString() };
-};
+import { computeRange, formatRangeLabel } from "../utils/dateRange.js";
 
 // Convert rows (array of objects) to CSV string
 const rowsToCsv = (rows) => {
@@ -44,9 +19,10 @@ export const showAnalytics = async (req, res) => {
   try {
     const type = req.query.type || "sales";
     const period = req.query.period || "month";
+    const refDate = req.query.refDate || new Date().toISOString().slice(0, 10);
     const { start, end } = req.query.startDate && req.query.endDate
       ? { start: req.query.startDate, end: req.query.endDate }
-      : computeRange(period, req.query.refDate);
+      : computeRange(period, refDate);
 
     const filters = reportService.normalizeReportFilters({
       startDate: start,
@@ -134,6 +110,9 @@ export const showAnalytics = async (req, res) => {
     return res.render("analytics/index", {
       title: "Analytics",
       type,
+      period,
+      refDate,
+      rangeLabel: formatRangeLabel(period, start, end),
       filters,
       rows: data.rows,
       summary: data.summary,

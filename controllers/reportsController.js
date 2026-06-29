@@ -1,45 +1,15 @@
 import * as reportService from "../services/reportService.js";
-
-/**
- * Reports controller
- * - summary view shows aggregated product sales for a period
- * - supports query params: period=day|week|month or startDate/endDate
- */
-
-// Helper to compute start/end timestamps for period
-const computeRange = (period, refDateStr) => {
-  const ref = refDateStr ? new Date(refDateStr) : new Date();
-  ref.setHours(0, 0, 0, 0);
-
-  if (period === "day") {
-    const start = new Date(ref);
-    const end = new Date(ref);
-    end.setDate(end.getDate() + 1);
-    return { start: start.toISOString(), end: end.toISOString() };
-  }
-
-  if (period === "week") {
-    const day = (ref.getDay() + 6) % 7; // 0=Monday
-    const start = new Date(ref);
-    start.setDate(start.getDate() - day);
-    const end = new Date(start);
-    end.setDate(end.getDate() + 7);
-    return { start: start.toISOString(), end: end.toISOString() };
-  }
-
-  // month
-  const start = new Date(ref.getFullYear(), ref.getMonth(), 1);
-  const end = new Date(ref.getFullYear(), ref.getMonth() + 1, 1);
-  return { start: start.toISOString(), end: end.toISOString() };
-};
+import { computeRange, formatRangeLabel } from "../utils/dateRange.js";
 
 export const showReport = async (req, res) => {
   try {
-    const { period = "month", startDate, endDate, page = 1, limit = 25 } = req.query;
+    const period = req.query.period || "month";
+    const refDate = req.query.refDate || new Date().toISOString().slice(0, 10);
+    const { startDate, endDate, page = 1, limit = 25 } = req.query;
 
     let range = { start: startDate || "", end: endDate || "" };
     if (!startDate && !endDate) {
-      range = computeRange(period, req.query.refDate);
+      range = computeRange(period, refDate);
     }
 
     const filters = reportService.normalizeReportFilters({
@@ -49,17 +19,37 @@ export const showReport = async (req, res) => {
       limit,
     });
 
-    // Use product report which includes units_sold and sales_value
-    const data = await reportService.getProductReport({ filters, user: req.session.user, exportAll: false });
+    const data = await reportService.getProductReport({
+      filters,
+      user: req.session.user,
+      exportAll: false,
+    });
+
+    const periodRevenue = data.rows.reduce(
+      (sum, row) => sum + Number(row.sales_value || 0),
+      0
+    );
+    const periodUnits = data.rows.reduce(
+      (sum, row) => sum + Number(row.units_sold || 0),
+      0
+    );
+    const productsSold = data.rows.filter((row) => Number(row.units_sold || 0) > 0).length;
 
     return res.render("reports/index", {
       title: "Sales Reports",
       period,
+      refDate,
       startDate: filters.startDate,
       endDate: filters.endDate,
+      rangeLabel: formatRangeLabel(period, range.start, range.end),
       rows: data.rows,
       summary: data.summary,
       pagination: data.pagination,
+      periodStats: {
+        revenue: periodRevenue,
+        units: periodUnits,
+        productsSold,
+      },
     });
   } catch (error) {
     console.error("Reports error:", error.message);
