@@ -4,18 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= title %> | <%= appName %></title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/brand.css">
   </head>
-  <body>
+  <body class="landing-page">
     <nav class="navbar navbar-expand-lg landing-nav sticky-top">
       <div class="container">
         <%- include('partials/brand-mark') %>
         <div class="d-flex align-items-center gap-2">
+          <a href="#features" class="btn btn-link btn-sm landing-nav-link d-none d-sm-inline-block">Features</a>
           <a href="/auth/login" class="btn btn-login btn-sm">Login</a>
         </div>
       </div>
@@ -27,15 +26,25 @@
           <div class="row align-items-center gy-5">
             <div class="col-lg-6">
               <div class="hero-eyebrow">
-                <span>Smart sales, smarter teams</span>
+                <i class="bi bi-lightning-charge"></i>
+                <span>MSKiTECH Sales Platform</span>
               </div>
-              <h1>Run your entire sales operation from one place.</h1>
+              <h1>Sell faster. Track stock. Grow with confidence.</h1>
               <p class="hero-lead">
-                Track inventory, process orders, manage customers, and monitor performance — with role-based dashboards built for CEOs, managers, and sales teams.
+                The all-in-one system for inventory control, sales processing, and team performance — built for CEOs, managers, and salespeople.
               </p>
+
+              <ul class="hero-highlights">
+                <li><i class="bi bi-check2"></i> Real-time inventory &amp; low-stock alerts</li>
+                <li><i class="bi bi-check2"></i> Fast sales checkout with printable receipts</li>
+                <li><i class="bi bi-check2"></i> Role-based dashboards &amp; analytics</li>
+              </ul>
+
               <div class="d-flex flex-column flex-sm-row gap-3">
-                <a href="/auth/login" class="btn btn-lg hero-cta-primary">Get started</a>
-                <a href="#features" class="btn btn-lg hero-cta-secondary">See features</a>
+                <a href="/auth/login" class="btn btn-lg hero-cta-primary">
+                  <i class="bi bi-box-arrow-in-right me-2"></i>Get started
+                </a>
+                <a href="#features" class="btn btn-lg hero-cta-secondary">Explore features</a>
               </div>
             </div>
 
@@ -47,36 +56,36 @@
                     <span class="dot" style="background:#f59e0b"></span>
                     <span class="dot" style="background:#22c55e"></span>
                   </div>
-                  <span class="text-muted small fw-semibold">Dashboard preview</span>
+                  <span class="text-muted small fw-semibold">Live dashboard preview</span>
                 </div>
                 <div class="hero-card-body">
                   <div class="row g-3">
                     <div class="col-6">
-                      <div class="stat-tile">
-                        <div class="stat-icon">📦</div>
+                      <div class="stat-tile stat-tile--primary">
+                        <div class="stat-icon"><i class="bi bi-boxes"></i></div>
                         <div class="stat-label">Inventory</div>
-                        <div class="stat-value">Stock alerts</div>
+                        <div class="stat-value">Stock control</div>
                       </div>
                     </div>
                     <div class="col-6">
-                      <div class="stat-tile">
-                        <div class="stat-icon">🏷️</div>
-                        <div class="stat-label">Products</div>
-                        <div class="stat-value">Catalog manager</div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="stat-tile">
-                        <div class="stat-icon">💳</div>
+                      <div class="stat-tile stat-tile--primary">
+                        <div class="stat-icon"><i class="bi bi-receipt"></i></div>
                         <div class="stat-label">Sales</div>
-                        <div class="stat-value">Fast checkout</div>
+                        <div class="stat-value">Receipts</div>
                       </div>
                     </div>
                     <div class="col-6">
                       <div class="stat-tile">
-                        <div class="stat-icon">👥</div>
+                        <div class="stat-icon"><i class="bi bi-bar-chart-line"></i></div>
+                        <div class="stat-label">Reports</div>
+                        <div class="stat-value">Analytics</div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="stat-tile">
+                        <div class="stat-icon"><i class="bi bi-people"></i></div>
                         <div class="stat-label">Customers</div>
-                        <div class="stat-value">CRM details</div>
+                        <div class="stat-value">CRM</div>
                       </div>
                     </div>
                   </div>
@@ -90,38 +99,50 @@
       <section id="features" class="features-section">
         <div class="container">
           <div class="text-center">
-            <span class="section-eyebrow">Features built for teams</span>
-            <h2>Everything your sales team needs</h2>
-            <p class="section-desc">One platform for product inventory, order tracking, customer management, and dashboards tailored to CEO, Manager, and Salesperson roles.</p>
+            <span class="section-eyebrow">Core capabilities</span>
+            <h2>Built for how sales teams actually work</h2>
+            <p class="section-desc">Start with inventory and sales — then layer on reporting, customer management, and secure role-based access as your team grows.</p>
+          </div>
+
+          <div class="row g-4 mb-4">
+            <div class="col-md-6">
+              <div class="feature-card feature-card--featured">
+                <span class="feature-priority">Most important</span>
+                <div class="feature-icon-wrap"><i class="bi bi-boxes"></i></div>
+                <h3>Inventory &amp; stock alerts</h3>
+                <p>Track every SKU in real time. Get low-stock and out-of-stock warnings before you lose a sale. Record stock-in and stock-out movements with a full audit trail.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="feature-card feature-card--featured">
+                <span class="feature-priority">Most important</span>
+                <div class="feature-icon-wrap"><i class="bi bi-cart-check"></i></div>
+                <h3>Sales processing &amp; receipts</h3>
+                <p>Ring up sales in seconds, generate professional receipts, and track performance by salesperson. Every transaction updates inventory automatically.</p>
+              </div>
+            </div>
           </div>
 
           <div class="row g-4">
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-6 col-lg-4">
               <div class="feature-card">
-                <div class="feature-icon-wrap">📦</div>
-                <h3>Inventory health</h3>
-                <p>Track stock levels, low inventory, and restock needs in one central dashboard.</p>
+                <div class="feature-icon-wrap"><i class="bi bi-bar-chart-line"></i></div>
+                <h3>Reports &amp; analytics</h3>
+                <p>Filter sales and inventory data by day, week, or month. Export insights for smarter business decisions.</p>
               </div>
             </div>
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-6 col-lg-4">
               <div class="feature-card">
-                <div class="feature-icon-wrap">💳</div>
-                <h3>Sales order flow</h3>
-                <p>Create sales, print receipts, and monitor performance per salesperson.</p>
+                <div class="feature-icon-wrap"><i class="bi bi-people"></i></div>
+                <h3>Customer management</h3>
+                <p>Maintain a central customer directory. Link every sale to a client and build lasting relationships.</p>
               </div>
             </div>
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-6 col-lg-4">
               <div class="feature-card">
-                <div class="feature-icon-wrap">👥</div>
-                <h3>Customer care</h3>
-                <p>Manage customers, record details, and build stronger relationships.</p>
-              </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-              <div class="feature-card">
-                <div class="feature-icon-wrap">🔐</div>
-                <h3>Role-based access</h3>
-                <p>Secure dashboards for CEO, Manager, and Salesperson roles with proper permissions.</p>
+                <div class="feature-icon-wrap"><i class="bi bi-shield-lock"></i></div>
+                <h3>Role-based security</h3>
+                <p>Separate dashboards for CEO, Manager, and Salesperson — each with the right permissions and data access.</p>
               </div>
             </div>
           </div>
@@ -132,19 +153,23 @@
         <div class="container">
           <div class="row align-items-center gy-4">
             <div class="col-lg-6">
-              <h2>Launch your sales workflow with confidence</h2>
-              <p class="text-secondary">Built for small teams and growing businesses — keeping your product catalog, inventory, sales activity, and reporting connected and easy to use.</p>
+              <span class="section-eyebrow">Why MSKiTECH</span>
+              <h2>One platform. Zero spreadsheet chaos.</h2>
+              <p class="text-secondary">Replace disconnected tools with a single system that keeps your catalog, stock, sales, and team aligned — accessible from any device.</p>
               <ul class="cta-checklist">
-                <li>Secure login and session handling</li>
-                <li>Clean role-aware dashboards</li>
-                <li>Responsive design on every device</li>
+                <li>Inventory synced with every sale</li>
+                <li>CEO, Manager &amp; Salesperson dashboards</li>
+                <li>Activity logs &amp; audit trail</li>
+                <li>Responsive on desktop and mobile</li>
               </ul>
             </div>
             <div class="col-lg-6">
               <div class="cta-card">
-                <h3>Start with your team</h3>
-                <p>Login to access the full <%= appName %> experience, or set up your first users via the database seed files.</p>
-                <a href="/auth/login" class="btn">Go to Login</a>
+                <h3>Ready to streamline your sales?</h3>
+                <p>Sign in to access <%= appName %> — manage products, process orders, and monitor your business from one secure workspace.</p>
+                <a href="/auth/login" class="btn">
+                  <i class="bi bi-box-arrow-in-right me-2"></i>Go to Login
+                </a>
               </div>
             </div>
           </div>
@@ -153,9 +178,34 @@
     </main>
 
     <footer class="landing-footer">
-      <img src="/images/mskitech-logo.png" alt="<%= appName %>" class="footer-brand-logo d-block mx-auto">
-      <%- include('partials/brand-contact', { contactVariant: 'center' }) %>
-      <strong>MSKiTECH</strong> &mdash; Streamline your sales operations.
+      <div class="container landing-footer-top">
+        <div class="row g-4">
+          <div class="col-md-4 text-center text-md-start">
+            <img src="/images/mskitech-logo.png" alt="<%= appName %>" class="footer-brand-logo">
+            <p class="landing-footer-tagline">
+              <%= appName %> — inventory, sales, and customer management for growing teams in Uganda and beyond.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p class="landing-footer-heading">Key Features</p>
+            <ul class="landing-footer-links">
+              <li><a href="#features">Inventory &amp; stock alerts</a></li>
+              <li><a href="#features">Sales &amp; receipts</a></li>
+              <li><a href="#features">Reports &amp; analytics</a></li>
+              <li><a href="#features">Role-based access</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <p class="landing-footer-heading">Contact</p>
+            <%- include('partials/brand-contact', { contactVariant: 'footer' }) %>
+            <p class="landing-footer-meta">Mon – Fri, 8:00 AM – 6:00 PM EAT · Kampala, Uganda</p>
+          </div>
+        </div>
+      </div>
+      <div class="container landing-footer-bottom">
+        <span>&copy; <%= new Date().getFullYear() %> MSKiTECH. All rights reserved.</span>
+        <span>Streamline your sales operations.</span>
+      </div>
     </footer>
   </body>
 </html>
