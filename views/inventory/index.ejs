@@ -11,29 +11,11 @@
     <link rel="stylesheet" href="/css/app-pages.css">
   </head>
   <body class="dashboard-page">
-    <nav class="navbar navbar-expand-lg dashboard-nav">
-      <div class="container">
-        <%- include('../partials/brand-mark') %>
-        <div class="d-flex align-items-center gap-2 gap-md-3">
-          <a href="/products" class="btn btn-outline-primary btn-sm d-none d-sm-inline-flex">
-            <i class="bi bi-tags me-1"></i>Products
-          </a>
-          <a href="/inventory/history" class="btn btn-outline-secondary btn-sm d-none d-sm-inline-flex">
-            <i class="bi bi-clock-history me-1"></i>History
-          </a>
-          <div class="user-pill">
-            <span class="user-avatar"><%= currentUser.name.charAt(0).toUpperCase() %></span>
-            <span>
-              <span class="user-name d-block"><%= currentUser.name %></span>
-              <span class="user-role"><%= currentUser.role %></span>
-            </span>
-          </div>
-          <form action="/auth/logout" method="POST" class="mb-0">
-            <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
-          </form>
-        </div>
-      </div>
-    </nav>
+    <% const navLinks = [
+      { href: '/products', label: 'Products', icon: 'bi-tags', btnClass: 'btn-outline-primary btn-sm' },
+      { href: '/inventory/history', label: 'History', icon: 'bi-clock-history', btnClass: 'btn-outline-secondary btn-sm' },
+    ]; %>
+    <%- include('../partials/app-navbar', { navLinks }) %>
 
     <main class="app-page-main">
       <div class="container">
