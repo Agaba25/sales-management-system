@@ -1,0 +1,37 @@
+<footer class="app-footer">
+  <div class="container app-footer-top">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <img
+          src="/images/mskitech-logo.png"
+          alt="<%= appName %>"
+          class="app-footer-logo"
+        >
+        <p class="app-footer-tagline">
+          <%= appName %> — inventory, sales, and customer management in one secure platform for your team.
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p class="app-footer-heading">Quick Links</p>
+        <ul class="app-footer-links">
+          <li><a href="/">Dashboard</a></li>
+          <li><a href="/products">Products</a></li>
+          <li><a href="/sales">Sales</a></li>
+          <li><a href="/customers">Customers</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <p class="app-footer-heading">Support &amp; Contact</p>
+        <%- include('brand-contact', { contactVariant: 'footer' }) %>
+        <ul class="app-footer-meta mt-2">
+          <li>Hours: Mon – Fri, 8:00 AM – 6:00 PM EAT</li>
+          <li>Location: Kampala, Uganda</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container app-footer-bottom">
+    <span>&copy; <%= new Date().getFullYear() %> MSKiTECH. All rights reserved.</span>
+    <span>Authorized internal use only &mdash; <%= currentUser.role %> session</span>
+  </div>
+</footer>
