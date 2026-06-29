@@ -40,6 +40,9 @@ class Sale {
          sales.status,
          sales.created_at,
          customers.name AS customer_name,
+         customers.email AS customer_email,
+         customers.phone AS customer_phone,
+         customers.address AS customer_address,
          users.name AS user_name
        FROM sales
        JOIN customers ON sales.customer_id = customers.id
