@@ -21,9 +21,7 @@ body {
 }
 
 .landing-nav .navbar-brand {
-  color: var(--landing-primary) !important;
-  font-size: 1.05rem;
-  letter-spacing: -0.01em;
+  padding: 0.25rem 0;
 }
 
 .landing-nav .btn-login {

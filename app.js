@@ -34,6 +34,8 @@ app.set("trust proxy", 1);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.locals.appName = "MSKiTECH Sales Management System";
+
 // Shared display helper keeps financial figures consistent across templates.
 app.locals.formatCurrencyUGX = (value) => {
   const number = Number(String(value).replace(/,/g, "")) || 0;

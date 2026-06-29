@@ -1,0 +1,74 @@
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0;
+  margin-right: 0.5rem;
+}
+
+.brand-logo {
+  height: 42px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  display: block;
+}
+
+.receipt-brand {
+  text-align: center;
+  border-bottom: 2px dashed #dee2e6;
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.receipt-logo {
+  height: 64px;
+  width: auto;
+  max-width: 240px;
+  object-fit: contain;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.receipt-brand p {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+.login-brand {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.login-logo {
+  height: 56px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+}
+
+.landing-footer .footer-brand-logo {
+  height: 32px;
+  width: auto;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 575px) {
+  .brand-logo {
+    height: 36px;
+    max-width: 160px;
+  }
+
+  .receipt-logo {
+    height: 52px;
+    max-width: 200px;
+  }
+}
+
+@media print {
+  .receipt-logo {
+    height: 58px;
+    max-width: 220px;
+  }
+}

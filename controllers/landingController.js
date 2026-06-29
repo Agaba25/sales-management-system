@@ -4,6 +4,6 @@ export const showLanding = (req, res) => {
   }
 
   return res.render("landing", {
-    title: "Sales Management System",
+    title: "Home",
   });
 };
