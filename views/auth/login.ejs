@@ -4,99 +4,84 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= title %> | <%= appName %></title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    >
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/brand.css">
+    <link rel="stylesheet" href="/css/login.css">
   </head>
-  <body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
-      <div class="container">
-        <%- include('../partials/brand-mark') %>
-      </div>
-    </nav>
-
-    <main class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
-      <div class="card shadow-sm border-0" style="max-width: 420px; width: 100%;">
-        <div class="card-body p-4">
-          <div class="login-brand">
-            <img src="/images/mskitech-logo.png" alt="<%= appName %>" class="login-logo">
-            <%- include('../partials/brand-contact', { contactVariant: 'center' }) %>
+  <body class="login-page">
+    <div class="login-container">
+      <div class="login-card">
+        <div class="logo">
+          <img src="/images/mskitech-logo.png" alt="<%= appName %>" class="logo-img">
+          <div class="logo-text">
+            <h1>MSKiTECH</h1>
+            <p>Sales Management System</p>
           </div>
-          <h1 class="h4 mb-1 text-center">Login</h1>
-          <p class="text-secondary mb-4 text-center"><%= appName %></p>
-
-          <% if (errorMessages && errorMessages.length) { %>
-            <div class="alert alert-danger" role="alert">
-              <%= errorMessages[0] %>
-            </div>
-          <% } %>
-
-          <% if (successMessages && successMessages.length) { %>
-            <div class="alert alert-success" role="alert">
-              <%= successMessages[0] %>
-            </div>
-          <% } %>
-
-          <form action="/auth/login" method="POST" novalidate>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email address</label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                name="email"
-                value="<%= email || '' %>"
-                autocomplete="email"
-                required
-              >
-            </div>
-
-            <div class="mb-4">
-              <label for="password" class="form-label">Password</label>
-              <div class="input-group">
-                <input
-                  type="password"
-                  class="form-control"
-                  id="password"
-                  name="password"
-                  autocomplete="current-password"
-                  required
-                >
-                <button
-                  type="button"
-                  class="btn btn-outline-secondary password-toggle"
-                  id="togglePassword"
-                  aria-label="Show password"
-                  aria-pressed="false"
-                  title="Show password"
-                >
-                  <svg class="password-toggle-icon password-toggle-icon-show" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                  <svg class="password-toggle-icon password-toggle-icon-hide d-none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M3 3l18 18"></path>
-                    <path d="M10.6 10.6A2 2 0 0 0 12 14a2 2 0 0 0 1.4-.6"></path>
-                    <path d="M9.9 4.2A10.5 10.5 0 0 1 12 4c6.5 0 10 8 10 8a18.4 18.4 0 0 1-3.2 4.3"></path>
-                    <path d="M6.6 6.6C3.6 8.6 2 12 2 12s3.5 8 10 8a10.2 10.2 0 0 0 4.3-.9"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">Login</button>
-          </form>
+          <div class="login-contact">
+            <div>Tel: <a href="tel:<%= appPhone %>"><%= appPhone %></a></div>
+            <div>Email: <a href="mailto:<%= appEmail %>"><%= appEmail %></a></div>
+          </div>
         </div>
+
+        <% if (errorMessages && errorMessages.length) { %>
+          <div class="login-alert login-alert-danger" role="alert">
+            <%= errorMessages[0] %>
+          </div>
+        <% } %>
+
+        <% if (successMessages && successMessages.length) { %>
+          <div class="login-alert login-alert-success" role="alert">
+            <%= successMessages[0] %>
+          </div>
+        <% } %>
+
+        <form action="/auth/login" method="POST" class="login-form" novalidate>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value="<%= email || '' %>"
+              autocomplete="email"
+              placeholder="Enter your email"
+              required
+            >
+          </div>
+
+          <div class="password-wrapper">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              autocomplete="current-password"
+              placeholder="Enter your password"
+              required
+            >
+            <button
+              type="button"
+              class="toggle-password"
+              id="togglePassword"
+              aria-label="Show password"
+              aria-pressed="false"
+              title="Show password"
+            >&#128065;</button>
+          </div>
+
+          <div class="form-options">
+            <label class="remember-me">
+              <input type="checkbox" id="rememberMe">
+              <span>Remember me</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-login-submit">Login</button>
+        </form>
       </div>
-    </main>
+    </div>
+
     <script>
       const passwordInput = document.getElementById("password");
       const togglePassword = document.getElementById("togglePassword");
-      const showIcon = togglePassword.querySelector(".password-toggle-icon-show");
-      const hideIcon = togglePassword.querySelector(".password-toggle-icon-hide");
 
       togglePassword.addEventListener("click", () => {
         const shouldShowPassword = passwordInput.type === "password";
@@ -104,8 +89,6 @@
         togglePassword.setAttribute("aria-label", shouldShowPassword ? "Hide password" : "Show password");
         togglePassword.setAttribute("aria-pressed", String(shouldShowPassword));
         togglePassword.setAttribute("title", shouldShowPassword ? "Hide password" : "Show password");
-        showIcon.classList.toggle("d-none", shouldShowPassword);
-        hideIcon.classList.toggle("d-none", !shouldShowPassword);
       });
     </script>
   </body>
