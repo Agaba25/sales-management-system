@@ -35,6 +35,8 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.locals.appName = "MSKiTECH Sales Management System";
+app.locals.appPhone = "+256787091118";
+app.locals.appEmail = "mskitech@gmail.com";
 
 // Shared display helper keeps financial figures consistent across templates.
 app.locals.formatCurrencyUGX = (value) => {

@@ -1,16 +1,71 @@
 .brand-mark {
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0;
-  margin-right: 0.5rem;
+  padding: 0.25rem 0 0;
+  margin-right: 0;
 }
 
 .brand-logo {
-  height: 42px;
+  height: 52px;
   width: auto;
-  max-width: 200px;
+  max-width: 240px;
   object-fit: contain;
   display: block;
+}
+
+.brand-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: #64748b;
+}
+
+.brand-contact a {
+  color: #1e3a5f;
+  text-decoration: none;
+}
+
+.brand-contact a:hover {
+  color: #0ea5e9;
+  text-decoration: underline;
+}
+
+.brand-contact-label {
+  font-weight: 600;
+  color: #64748b;
+  margin-right: 0.2rem;
+}
+
+.brand-contact--nav {
+  margin-top: 0.15rem;
+}
+
+.brand-contact--center {
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  margin-top: 0.5rem;
+  font-size: 0.78rem;
+}
+
+.brand-contact--center .brand-contact-item {
+  display: block;
+}
+
+.brand-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: auto;
+  padding: 0.15rem 0;
+}
+
+.navbar > .container {
+  align-items: center;
 }
 
 .receipt-brand {
@@ -21,54 +76,75 @@
 }
 
 .receipt-logo {
-  height: 64px;
+  height: 96px;
   width: auto;
-  max-width: 240px;
+  max-width: 300px;
   object-fit: contain;
   display: inline-block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
-.receipt-brand p {
-  font-size: 0.8rem;
+.receipt-brand .receipt-number {
+  font-size: 0.82rem;
   color: #6c757d;
-  margin: 0;
+  margin: 0.65rem 0 0;
+  font-weight: 600;
 }
 
 .login-brand {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .login-logo {
-  height: 56px;
+  height: 76px;
   width: auto;
-  max-width: 220px;
+  max-width: 280px;
   object-fit: contain;
 }
 
 .landing-footer .footer-brand-logo {
-  height: 32px;
+  height: 48px;
   width: auto;
-  opacity: 0.9;
-  margin-bottom: 0.5rem;
+  max-width: 260px;
+  opacity: 0.95;
+  margin-bottom: 0.35rem;
+}
+
+.landing-footer .brand-contact {
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.landing-footer .brand-contact a {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.landing-footer .brand-contact-label {
+  color: rgba(255, 255, 255, 0.65);
 }
 
 @media (max-width: 575px) {
   .brand-logo {
-    height: 36px;
-    max-width: 160px;
+    height: 44px;
+    max-width: 190px;
+  }
+
+  .brand-contact--nav {
+    font-size: 0.68rem;
+    gap: 0.2rem 0.6rem;
   }
 
   .receipt-logo {
-    height: 52px;
-    max-width: 200px;
+    height: 82px;
+    max-width: 260px;
   }
 }
 
 @media print {
   .receipt-logo {
-    height: 58px;
-    max-width: 220px;
+    height: 90px;
+    max-width: 280px;
   }
 }

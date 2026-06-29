@@ -22,7 +22,7 @@
       }
 
       .receipt-paper {
-        max-width: 420px;
+        max-width: 480px;
         margin: 0 auto;
         background: #fff;
         border: 1px solid #dee2e6;
@@ -36,12 +36,6 @@
         border-bottom: 2px dashed #dee2e6;
         padding-bottom: 1rem;
         margin-bottom: 1.25rem;
-      }
-
-      .receipt-brand p {
-        font-size: 0.8rem;
-        color: #6c757d;
-        margin: 0;
       }
 
       .receipt-section-title {
@@ -71,48 +65,76 @@
 
       .receipt-items {
         width: 100%;
-        font-size: 0.85rem;
+        font-size: 0.82rem;
         border-collapse: collapse;
+        table-layout: fixed;
       }
 
       .receipt-items th {
-        font-size: 0.7rem;
-        font-weight: 600;
+        font-size: 0.68rem;
+        font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;
         color: #6c757d;
-        border-bottom: 1px solid #dee2e6;
-        padding: 0.4rem 0;
+        border-bottom: 1.5px solid #dee2e6;
+        padding: 0.45rem 0.25rem;
         text-align: left;
       }
 
-      .receipt-items th:last-child,
-      .receipt-items td:last-child {
+      .receipt-items th.col-units,
+      .receipt-items th.col-qty,
+      .receipt-items th.col-amount,
+      .receipt-items td.col-units,
+      .receipt-items td.col-qty,
+      .receipt-items td.col-amount {
         text-align: right;
       }
 
+      .receipt-items th.col-qty,
+      .receipt-items td.col-qty {
+        text-align: center;
+      }
+
       .receipt-items td {
-        padding: 0.55rem 0;
+        padding: 0.5rem 0.25rem;
         border-bottom: 1px dotted #e9ecef;
         vertical-align: top;
+        word-wrap: break-word;
+      }
+
+      .receipt-items .col-item {
+        width: 38%;
+      }
+
+      .receipt-items .col-units {
+        width: 22%;
+      }
+
+      .receipt-items .col-qty {
+        width: 14%;
+      }
+
+      .receipt-items .col-amount {
+        width: 26%;
       }
 
       .receipt-items .item-name {
         font-weight: 500;
+        line-height: 1.35;
       }
 
-      .receipt-items .item-meta {
-        font-size: 0.75rem;
-        color: #6c757d;
-      }
-
-      .receipt-total {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-weight: 700;
-        font-size: 1rem;
+      .receipt-items tr.receipt-grand-total td {
+        border-top: 1.5px solid #343a40;
+        border-bottom: none;
         padding-top: 0.75rem;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: #212529;
+      }
+
+      .receipt-items tr.receipt-grand-total td.col-label {
+        text-align: right;
+        padding-right: 0.5rem;
       }
 
       .receipt-footer {
@@ -176,7 +198,8 @@
     <div class="receipt-paper">
       <div class="receipt-brand">
         <img src="/images/mskitech-logo.png" alt="<%= appName %>" class="receipt-logo">
-        <p>Receipt #<%= sale.id %></p>
+        <%- include('../partials/brand-contact', { contactVariant: 'center' }) %>
+        <p class="receipt-number">Receipt #<%= sale.id %></p>
       </div>
 
       <div class="receipt-customer">
@@ -192,36 +215,33 @@
       <table class="receipt-items">
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Qty</th>
-            <th>Amount</th>
+            <th class="col-item">Item</th>
+            <th class="col-units">Unit Price</th>
+            <th class="col-qty">QTY</th>
+            <th class="col-amount">Amount</th>
           </tr>
         </thead>
         <tbody>
           <% items.forEach((item) => { %>
             <tr>
-              <td>
+              <td class="col-item">
                 <div class="item-name"><%= item.product_name %></div>
-                <div class="item-meta">
-                  UGX <%= formatCurrencyUGX(item.unit_price) %> each
-                  <% if (item.sku) { %> &middot; <%= item.sku %><% } %>
-                </div>
               </td>
-              <td><%= item.quantity %></td>
-              <td>UGX <%= formatCurrencyUGX(item.total_price) %></td>
+              <td class="col-units">UGX <%= formatCurrencyUGX(item.unit_price) %></td>
+              <td class="col-qty"><%= item.quantity %></td>
+              <td class="col-amount">UGX <%= formatCurrencyUGX(item.total_price) %></td>
             </tr>
           <% }) %>
+          <tr class="receipt-grand-total">
+            <td class="col-label" colspan="3">Grand Total</td>
+            <td class="col-amount">UGX <%= formatCurrencyUGX(sale.total_amount) %></td>
+          </tr>
         </tbody>
       </table>
 
-      <div class="receipt-total">
-        <span>Total</span>
-        <span>UGX <%= formatCurrencyUGX(sale.total_amount) %></span>
-      </div>
-
       <div class="receipt-footer">
         <p>This receipt is computer generated.</p>
-        <p>Thank you for purchasing with us.</p>
+        <p>Thank you for purchasing with MSKiTECH.</p>
         <p><%= new Date(sale.created_at).toLocaleString() %></p>
       </div>
     </div>
