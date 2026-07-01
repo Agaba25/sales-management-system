@@ -43,6 +43,48 @@ class Product {
     return result.rows;
   }
 
+  static async searchAvailable(query = "", limit = 24) {
+    const searchTerm = `%${query}%`;
+    const result = await pool.query(
+      `SELECT
+         products.id,
+         products.name,
+         products.sku,
+         products.quantity,
+         products.unit_price,
+         categories.name AS category_name
+       FROM products
+       LEFT JOIN categories ON products.category_id = categories.id
+       WHERE products.is_active = TRUE
+         AND products.quantity > 0
+         AND (
+           $1 = ''
+           OR products.name ILIKE $2
+           OR products.sku ILIKE $2
+           OR categories.name ILIKE $2
+         )
+       ORDER BY products.name ASC
+       LIMIT $3`,
+      [query, searchTerm, limit]
+    );
+
+    return result.rows;
+  }
+
+  static async findAvailableCategories() {
+    const result = await pool.query(
+      `SELECT DISTINCT categories.id, categories.name
+       FROM categories
+       JOIN products ON products.category_id = categories.id
+       WHERE categories.is_active = TRUE
+         AND products.is_active = TRUE
+         AND products.quantity > 0
+       ORDER BY categories.name ASC`
+    );
+
+    return result.rows;
+  }
+
   static async findById(id) {
     const result = await pool.query(
       `SELECT products.*,

@@ -70,17 +70,28 @@ const nextMonthly = (ref = new Date()) => {
   return start;
 };
 
+// Node setTimeout only accepts delays up to ~24.8 days (2^31-1 ms).
+const MAX_TIMEOUT_MS = 2_147_483_647;
+
 const scheduleAt = (when, fn) => {
-  const now = new Date();
-  const ms = when - now;
+  const targetMs = when instanceof Date ? when.getTime() : Number(when);
+  const ms = targetMs - Date.now();
+
   if (ms <= 0) {
-    // run immediately then schedule next
-    fn();
-    return setTimeout(() => scheduleAt(new Date(Date.now() + 1000), fn), 1000);
+    Promise.resolve(fn()).catch((error) => {
+      console.error("Scheduled job error:", error.message);
+    });
+    return;
   }
 
-  return setTimeout(async () => {
-    try { await fn(); } catch (e) { console.error('Scheduled job error', e.message); }
+  if (ms > MAX_TIMEOUT_MS) {
+    return setTimeout(() => scheduleAt(when, fn), MAX_TIMEOUT_MS);
+  }
+
+  return setTimeout(() => {
+    Promise.resolve(fn()).catch((error) => {
+      console.error("Scheduled job error:", error.message);
+    });
   }, ms);
 };
 

@@ -48,15 +48,15 @@ export const listSales = async (req, res) => {
 
 export const showNewSale = async (req, res) => {
   try {
-    const [customers, products] = await Promise.all([
-      Customer.findActive(),
-      Product.findAvailable(),
+    const [recentCustomers, categories] = await Promise.all([
+      Sale.findRecentCustomers(req.session.user.id, 6),
+      Product.findAvailableCategories(),
     ]);
 
     return res.render("sales/new", {
-      title: "New Sale",
-      customers,
-      products,
+      title: "Quick Sale",
+      recentCustomers,
+      categories,
     });
   } catch (error) {
     console.error("Show new sale error:", error.message);
@@ -67,7 +67,10 @@ export const showNewSale = async (req, res) => {
 
 export const createSale = async (req, res) => {
   try {
-    const customerId = Number(req.body.customer_id);
+    const rawCustomerId = Array.isArray(req.body.customer_id)
+      ? req.body.customer_id.find((value) => value)
+      : req.body.customer_id;
+    const customerId = Number(rawCustomerId);
     const items = parseSaleItems(req.body);
 
     if (!customerId) {

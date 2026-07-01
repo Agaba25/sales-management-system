@@ -30,6 +30,27 @@ class Sale {
     return result.rows;
   }
 
+  static async findRecentCustomers(userId, limit = 6) {
+    const result = await pool.query(
+      `SELECT
+         customers.id,
+         customers.name,
+         customers.phone,
+         customers.email,
+         MAX(sales.created_at) AS last_sale_at
+       FROM sales
+       JOIN customers ON sales.customer_id = customers.id
+       WHERE sales.user_id = $1
+         AND customers.is_active = TRUE
+       GROUP BY customers.id, customers.name, customers.phone, customers.email
+       ORDER BY last_sale_at DESC
+       LIMIT $2`,
+      [userId, limit]
+    );
+
+    return result.rows;
+  }
+
   static async findByIdWithItems(id) {
     const saleResult = await pool.query(
       `SELECT

@@ -6,6 +6,7 @@ import session from "express-session";
 import flash from "connect-flash";
 import pool, { testConnection } from "./config/db.js";
 import sessionConfig from "./config/session.js";
+import apiRoutes from "./routes/apiRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 import inventoryRoutes from "./routes/inventoryRoutes.js";
@@ -51,6 +52,7 @@ app.use(session(sessionConfig));
 app.use(flash());
 app.use(setAuthLocals);
 
+app.use("/api", apiRoutes);
 app.use("/api/setup", setupRoutes);
 app.use("/auth", authRoutes);
 app.use("/inventory", inventoryRoutes);

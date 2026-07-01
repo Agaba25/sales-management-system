@@ -22,6 +22,26 @@ class Customer {
     return result.rows;
   }
 
+  static async searchActive(query = "", limit = 10) {
+    const searchTerm = `%${query}%`;
+    const result = await pool.query(
+      `SELECT id, name, email, phone
+       FROM customers
+       WHERE is_active = TRUE
+         AND (
+           $1 = ''
+           OR name ILIKE $2
+           OR email ILIKE $2
+           OR phone ILIKE $2
+         )
+       ORDER BY name ASC
+       LIMIT $3`,
+      [query, searchTerm, limit]
+    );
+
+    return result.rows;
+  }
+
   static async findById(id) {
     const result = await pool.query(
       `SELECT id, name, email, phone, address, is_active

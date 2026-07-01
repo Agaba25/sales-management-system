@@ -14,6 +14,7 @@
     >
     <link rel="stylesheet" href="/css/brand.css">
     <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/pos.css">
   </head>
   <body class="dashboard-page">
     <%- include('../partials/app-navbar') %>
@@ -29,17 +30,27 @@
         <div class="dashboard-welcome">
           <span class="dashboard-role-badge"><i class="bi bi-person-badge"></i> Salesperson</span>
           <h1>Welcome back, <%= currentUser.name.split(' ')[0] %></h1>
-          <p>Record sales, manage customers, and check product availability from your workspace.</p>
+          <p>Record sales fast with Quick Sale, manage customers, and check product availability.</p>
+        </div>
+
+        <div class="dashboard-pos-banner">
+          <div>
+            <h2><i class="bi bi-lightning-charge-fill me-1"></i> Customers waiting? Use Quick Sale</h2>
+            <p>Search products instantly, pick customers in one click, and complete sales without leaving the screen.</p>
+          </div>
+          <a href="/sales/new" class="btn btn-lg">
+            <i class="bi bi-cart-plus me-1"></i> Start Quick Sale
+          </a>
         </div>
 
         <p class="dashboard-section-title">Quick Actions</p>
         <div class="dashboard-actions">
-          <a href="/sales/new" class="dashboard-action">
+          <a href="/sales/new" class="dashboard-action dashboard-action--featured">
             <span class="dashboard-action-icon dashboard-action-icon--success">
-              <i class="bi bi-cart-plus"></i>
+              <i class="bi bi-lightning-charge"></i>
             </span>
-            <span class="dashboard-action-label">New Sale</span>
-            <span class="dashboard-action-desc">Create a sale receipt</span>
+            <span class="dashboard-action-label">Quick Sale</span>
+            <span class="dashboard-action-desc">Fast checkout — search &amp; sell</span>
           </a>
           <a href="/sales" class="dashboard-action">
             <span class="dashboard-action-icon dashboard-action-icon--primary">
