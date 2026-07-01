@@ -488,6 +488,42 @@
 }
 
 @media (max-width: 767px) {
+  .page-hero {
+    padding: 1.35rem 1.25rem;
+  }
+
+  .page-hero h1 {
+    font-size: 1.25rem;
+  }
+
+  .filter-panel {
+    padding: 1rem;
+  }
+
+  .data-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .insight-card-value {
+    font-size: 1.25rem;
+  }
+
+  .table-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .table-actions .btn {
+    width: 100%;
+  }
+
+  .dashboard-table th,
+  .dashboard-table td {
+    font-size: 0.82rem;
+    padding: 0.55rem 0.5rem;
+  }
+
   .activity-item {
     grid-template-columns: auto 1fr;
   }
@@ -499,5 +535,27 @@
 
   .app-page-main {
     padding: 1.25rem 0 2rem;
+  }
+
+  .dashboard-pos-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dashboard-pos-banner .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 575px) {
+  .stock-action-row {
+    width: 100%;
+  }
+
+  .stock-action-row input[type="number"],
+  .stock-action-row input[type="text"] {
+    width: 100% !important;
+    min-width: 0 !important;
   }
 }

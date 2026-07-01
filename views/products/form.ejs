@@ -4,104 +4,136 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= title %> | <%= appName %></title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/brand.css">
     <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/app-pages.css">
   </head>
   <body class="dashboard-page">
     <% const navLinks = [{ href: '/products', label: 'Products', icon: 'bi-tags', btnClass: 'btn-outline-primary btn-sm' }]; %>
     <%- include('../partials/app-navbar', { navLinks }) %>
 
-    <main class="container py-4">
-      <div class="mb-3">
-        <a href="/products" class="btn btn-outline-secondary btn-sm">Back to Products</a>
-      </div>
+    <main class="app-page-main">
+      <div class="container">
+        <div class="dashboard-back">
+          <a href="/products" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left me-1"></i>Back to Products
+          </a>
+        </div>
 
-      <div class="bg-white border rounded p-4">
-        <h1 class="h4 mb-4"><%= title %></h1>
+        <div class="page-hero">
+          <span class="page-hero-badge"><i class="bi bi-tags"></i> Product</span>
+          <h1><%= title %></h1>
+          <p>Add or update product details, pricing, stock, and category.</p>
+        </div>
 
-        <% if (errorMessages && errorMessages.length) { %>
-          <div class="alert alert-danger"><%= errorMessages[0] %></div>
-        <% } %>
+        <div class="data-card">
+          <div class="data-card-header">
+            <h2 class="data-card-title mb-0">Product Details</h2>
+          </div>
+          <div class="p-3 p-md-4">
+            <% if (errorMessages && errorMessages.length) { %>
+              <div class="alert alert-danger"><%= errorMessages[0] %></div>
+            <% } %>
 
-        <form action="<%= action %>" method="POST">
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="name" class="form-label">Product Name</label>
-              <input id="name" name="name" class="form-control" value="<%= product.name || '' %>" required>
-            </div>
+            <%
+              const categoryNames = categories.map((category) => category.name);
+              const currentCategory = product.category_name || "";
+              const hasKnownCategory = currentCategory && categoryNames.includes(currentCategory);
+              const useNewCategory = currentCategory && !hasKnownCategory;
+            %>
 
-            <div class="col-md-6">
-              <label for="sku" class="form-label">SKU</label>
-              <input id="sku" name="sku" class="form-control" value="<%= product.sku || '' %>" required>
-            </div>
+            <form action="<%= action %>" method="POST" id="product-form">
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <label for="name" class="form-label">Product Name</label>
+                  <input id="name" name="name" class="form-control" value="<%= product.name || '' %>" required>
+                </div>
 
-            <div class="col-md-6">
-              <label for="category_name" class="form-label">Category</label>
-              <input
-                id="category_name"
-                name="category_name"
-                class="form-control"
-                list="category-options"
-                value="<%= product.category_name || '' %>"
-                placeholder="Type or choose a category"
-              >
-              <datalist id="category-options">
-                <% categories.forEach((category) => { %>
-                  <option value="<%= category.name %>"></option>
-                <% }) %>
-              </datalist>
-              <div class="form-text">Leave blank to keep the product uncategorized.</div>
-            </div>
+                <div class="col-12 col-md-6">
+                  <label for="sku" class="form-label">SKU</label>
+                  <input id="sku" name="sku" class="form-control" value="<%= product.sku || '' %>" required>
+                </div>
 
-            <div class="col-md-6">
-              <label for="quantity" class="form-label">Quantity</label>
-              <input id="quantity" name="quantity" type="number" min="0" class="form-control" value="<%= product.quantity ?? 0 %>" required>
-            </div>
+                <div class="col-12 col-md-6">
+                  <label for="category-select" class="form-label">Category</label>
+                  <select id="category-select" class="form-select">
+                    <option value="" <%= !currentCategory ? "selected" : "" %>>— No category —</option>
+                    <% categories.forEach((category) => { %>
+                      <option
+                        value="<%= category.name %>"
+                        <%= currentCategory === category.name ? "selected" : "" %>
+                      ><%= category.name %></option>
+                    <% }) %>
+                    <option value="__new__" <%= useNewCategory ? "selected" : "" %>>+ Add new category…</option>
+                  </select>
+                  <div id="category-new-wrap" class="mt-2" style="<%= useNewCategory ? '' : 'display:none;' %>">
+                    <label for="category-new-input" class="form-label small text-secondary mb-1">New category name</label>
+                    <input
+                      type="text"
+                      id="category-new-input"
+                      class="form-control"
+                      placeholder="e.g. Electronics, Groceries…"
+                      value="<%= useNewCategory ? currentCategory : '' %>"
+                    >
+                  </div>
+                  <input type="hidden" name="category_name" id="category-name-field" value="<%= currentCategory %>">
+                  <div class="form-text">Pick from existing categories or add a new one.</div>
+                </div>
 
-            <div class="col-md-4">
-              <label for="unit_price" class="form-label">Unit Price (UGX)</label>
-              <input id="unit_price" name="unit_price" type="number" min="0" step="0.01" class="form-control" value="<%= product.unit_price ?? 0 %>" required>
-            </div>
+                <div class="col-12 col-md-6">
+                  <label for="quantity" class="form-label">Quantity</label>
+                  <input id="quantity" name="quantity" type="number" min="0" class="form-control" value="<%= product.quantity ?? 0 %>" required>
+                </div>
 
-            <div class="col-md-4">
-              <label for="cost_price" class="form-label">Cost Price (UGX)</label>
-              <input id="cost_price" name="cost_price" type="number" min="0" step="0.01" class="form-control" value="<%= product.cost_price ?? 0 %>" required>
-            </div>
+                <div class="col-12 col-sm-6 col-lg-4">
+                  <label for="unit_price" class="form-label">Unit Price (UGX)</label>
+                  <input id="unit_price" name="unit_price" type="number" min="0" step="0.01" class="form-control" value="<%= product.unit_price ?? 0 %>" required>
+                </div>
 
-            <div class="col-md-4">
-              <label for="reorder_level" class="form-label">Reorder Level</label>
-              <input id="reorder_level" name="reorder_level" type="number" min="0" class="form-control" value="<%= product.reorder_level ?? 5 %>" required>
-            </div>
+                <div class="col-12 col-sm-6 col-lg-4">
+                  <label for="cost_price" class="form-label">Cost Price (UGX)</label>
+                  <input id="cost_price" name="cost_price" type="number" min="0" step="0.01" class="form-control" value="<%= product.cost_price ?? 0 %>" required>
+                </div>
 
-            <div class="col-12">
-              <label for="description" class="form-label">Description</label>
-              <textarea id="description" name="description" class="form-control" rows="3"><%= product.description || '' %></textarea>
-            </div>
+                <div class="col-12 col-sm-6 col-lg-4">
+                  <label for="reorder_level" class="form-label">Reorder Level</label>
+                  <input id="reorder_level" name="reorder_level" type="number" min="0" class="form-control" value="<%= product.reorder_level ?? 5 %>" required>
+                </div>
 
-            <div class="col-12">
-              <div class="form-check">
-                <input
-                  id="is_active"
-                  name="is_active"
-                  type="checkbox"
-                  class="form-check-input"
-                  <%= product.is_active === false ? '' : 'checked' %>
-                >
-                <label for="is_active" class="form-check-label">Active product</label>
+                <div class="col-12">
+                  <label for="description" class="form-label">Description</label>
+                  <textarea id="description" name="description" class="form-control" rows="3"><%= product.description || '' %></textarea>
+                </div>
+
+                <div class="col-12">
+                  <div class="form-check">
+                    <input
+                      id="is_active"
+                      name="is_active"
+                      type="checkbox"
+                      class="form-check-input"
+                      <%= product.is_active === false ? '' : 'checked' %>
+                    >
+                    <label for="is_active" class="form-check-label">Active product</label>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div class="mt-4">
-            <button type="submit" class="btn btn-primary">Save Product</button>
+              <div class="mt-4 d-flex flex-wrap gap-2">
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-check-lg me-1"></i>Save Product
+                </button>
+                <a href="/products" class="btn btn-outline-secondary">Cancel</a>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </main>
+
+    <%- include('../partials/app-footer') %>
+    <script src="/js/category-picker.js"></script>
   </body>
 </html>

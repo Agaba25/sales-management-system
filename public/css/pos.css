@@ -51,6 +51,20 @@
   .pos-layout {
     grid-template-columns: 1fr;
   }
+
+  .pos-cart {
+    position: static;
+  }
+
+  .pos-product-grid {
+    max-height: none;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .pos-header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .pos-panel {
@@ -190,12 +204,6 @@
 .pos-cart {
   position: sticky;
   top: 72px;
-}
-
-@media (max-width: 991.98px) {
-  .pos-cart {
-    position: static;
-  }
 }
 
 .pos-customer-section {
@@ -491,4 +499,18 @@
 
 .dashboard-action--featured .dashboard-action-icon--success {
   transform: scale(1.1);
+}
+
+@media (max-width: 575px) {
+  .pos-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pos-complete-btn {
+    font-size: 0.9rem;
+  }
+
+  .pos-keyboard-hint {
+    display: none;
+  }
 }

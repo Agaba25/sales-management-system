@@ -1,33 +1,88 @@
+<%
+  let roleQuickNav = [];
+  if (currentUser) {
+    if (currentUser.role === "CEO") {
+      roleQuickNav = [
+        { href: "/products", label: "Products", icon: "bi-tags" },
+        { href: "/inventory", label: "Inventory", icon: "bi-boxes" },
+        { href: "/sales", label: "Sales", icon: "bi-receipt" },
+        { href: "/customers", label: "Customers", icon: "bi-people" },
+        { href: "/users", label: "Staff", icon: "bi-person-gear" },
+      ];
+    } else if (currentUser.role === "MANAGER") {
+      roleQuickNav = [
+        { href: "/products", label: "Products", icon: "bi-tags" },
+        { href: "/inventory", label: "Inventory", icon: "bi-boxes" },
+        { href: "/sales", label: "Sales", icon: "bi-receipt" },
+        { href: "/customers", label: "Customers", icon: "bi-people" },
+        { href: "/reports", label: "Reports", icon: "bi-file-earmark-bar-graph" },
+      ];
+    } else if (currentUser.role === "SALESPERSON") {
+      roleQuickNav = [
+        { href: "/sales/new", label: "Quick Sale", icon: "bi-lightning-charge" },
+        { href: "/sales", label: "Sales", icon: "bi-receipt" },
+        { href: "/customers", label: "Customers", icon: "bi-people" },
+        { href: "/products", label: "Products", icon: "bi-box-seam" },
+      ];
+    }
+  }
+%>
 <nav class="navbar navbar-expand-lg dashboard-nav">
   <div class="container">
     <%- include('brand-mark') %>
-    <div class="d-flex align-items-center gap-2 gap-md-3">
-      <a href="/" class="btn btn-outline-secondary btn-sm" title="Dashboard">
-        <i class="bi bi-house"></i><span class="d-none d-sm-inline ms-1">Dashboard</span>
-      </a>
-      <% if (typeof navLinks !== 'undefined' && navLinks && navLinks.length) { %>
-        <% navLinks.forEach((link) => { %>
-          <a href="<%= link.href %>"
-             class="btn <%= link.btnClass || 'btn-outline-secondary btn-sm' %> d-none d-sm-inline-flex"
-             <% if (link.title) { %>title="<%= link.title %>"<% } %>>
-            <% if (link.icon) { %><i class="bi <%= link.icon %> me-1"></i><% } %><%= link.label %>
+    <button
+      class="navbar-toggler dashboard-nav-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#appNavMenu"
+      aria-controls="appNavMenu"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="appNavMenu">
+      <div class="navbar-nav-panel ms-lg-auto">
+        <% if (roleQuickNav.length) { %>
+          <div class="nav-quick-links d-lg-none">
+            <% roleQuickNav.forEach((link) => { %>
+              <a href="<%= link.href %>" class="nav-quick-link">
+                <i class="bi <%= link.icon %>"></i>
+                <span><%= link.label %></span>
+              </a>
+            <% }) %>
+          </div>
+        <% } %>
+        <div class="nav-actions">
+          <a href="/" class="btn btn-outline-secondary btn-sm nav-action-btn" title="Dashboard">
+            <i class="bi bi-house"></i><span class="nav-action-label">Dashboard</span>
           </a>
-        <% }) %>
-      <% } %>
-      <% if (currentUser) { %>
-        <div class="user-pill">
-          <span class="user-avatar"><%= currentUser.name.charAt(0).toUpperCase() %></span>
-          <span>
-            <span class="user-name d-block"><%= currentUser.name %></span>
-            <span class="user-role"><%= currentUser.role %></span>
-          </span>
+          <% if (typeof navLinks !== 'undefined' && navLinks && navLinks.length) { %>
+            <% navLinks.forEach((link) => { %>
+              <a href="<%= link.href %>"
+                 class="btn <%= link.btnClass || 'btn-outline-secondary btn-sm' %> nav-action-btn"
+                 <% if (link.title) { %>title="<%= link.title %>"<% } %>>
+                <% if (link.icon) { %><i class="bi <%= link.icon %>"></i><% } %>
+                <span class="nav-action-label"><%= link.label %></span>
+              </a>
+            <% }) %>
+          <% } %>
+          <% if (currentUser) { %>
+            <div class="user-pill">
+              <span class="user-avatar"><%= currentUser.name.charAt(0).toUpperCase() %></span>
+              <span class="user-pill-text">
+                <span class="user-name d-block"><%= currentUser.name %></span>
+                <span class="user-role"><%= currentUser.role %></span>
+              </span>
+            </div>
+            <form action="/auth/logout" method="POST" class="mb-0">
+              <button type="submit" class="btn btn-outline-danger btn-sm nav-action-btn">
+                <i class="bi bi-box-arrow-right"></i><span class="nav-action-label">Logout</span>
+              </button>
+            </form>
+          <% } %>
         </div>
-        <form action="/auth/logout" method="POST" class="mb-0">
-          <button type="submit" class="btn btn-outline-danger btn-sm">
-            <i class="bi bi-box-arrow-right me-1"></i>Logout
-          </button>
-        </form>
-      <% } %>
+      </div>
     </div>
   </div>
 </nav>

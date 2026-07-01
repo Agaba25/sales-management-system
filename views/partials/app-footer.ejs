@@ -32,6 +32,9 @@
   </div>
   <div class="container app-footer-bottom">
     <span>&copy; <%= new Date().getFullYear() %> MSKiTECH. All rights reserved.</span>
-    <span>Authorized internal use only &mdash; <%= currentUser.role %> session</span>
+    <% if (currentUser) { %>
+      <span>Authorized internal use only &mdash; <%= currentUser.role %> session</span>
+    <% } %>
   </div>
 </footer>
+<%- include('app-scripts') %>
