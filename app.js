@@ -38,6 +38,8 @@ app.set("views", path.join(__dirname, "views"));
 app.locals.appName = "MSKiTECH Sales Management System";
 app.locals.appPhone = "+256787091118";
 app.locals.appEmail = "mskitech@gmail.com";
+app.locals.gaMeasurementId = process.env.GA_MEASUREMENT_ID || "G-Q10K37B3RY";
+app.locals.gaPropertyId = process.env.GA_PROPERTY_ID || "15184897953";
 
 // Shared display helper keeps financial figures consistent across templates.
 app.locals.formatCurrencyUGX = (value) => {

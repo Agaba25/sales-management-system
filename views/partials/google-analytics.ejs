@@ -1,0 +1,10 @@
+<% if (gaMeasurementId) { %>
+<!-- Google tag (gtag.js) — Property ID: <%= gaPropertyId %> -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=<%= gaMeasurementId %>"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "<%= gaMeasurementId %>");
+</script>
+<% } %>
